@@ -1,9 +1,9 @@
 package entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "planet")
 @Entity
@@ -12,6 +12,8 @@ public class Planet {
     private String id;
     @Column
     private String name;
+    @OneToMany(mappedBy = "planet", cascade = CascadeType.ALL)
+    private List<Ticket> tickets = new ArrayList<>();
 
     public String getId() {
         return id;

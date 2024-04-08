@@ -1,5 +1,6 @@
 package services;
 
+import entity.Client;
 import entity.Planet;
 import hibernate.HibernateUtils;
 import org.hibernate.Session;
@@ -27,6 +28,12 @@ public class PlanetCrudService {
             Transaction transaction = session.beginTransaction();
             session.remove(planet);
             transaction.commit();
+        }
+    }
+
+    public Planet getPlanetById(String planetId) {
+        try (Session session = HibernateUtils.getInstance().getSessionFactory().openSession()) {
+            return session.get(Planet.class, planetId);
         }
     }
 }

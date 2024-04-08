@@ -1,18 +1,19 @@
 package services;
 
-import entity.Client;
+
+import entity.Ticket;
 import hibernate.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ClientCrudService {
-    public boolean createClient(Client client) {
+public class TicketCrudService {
+    public boolean createTicket(Ticket ticket) {
         boolean result = false;
         try (Session session = HibernateUtils.getInstance().getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             try {
-                client.setId(null);
-                session.persist(client);
+                ticket.setId(null);
+                session.persist(ticket);
                 transaction.commit();
                 result = true;
             } catch(Exception ex) {
@@ -23,16 +24,13 @@ public class ClientCrudService {
         return result;
     }
 
-    public void deleteClient(Client client) {
+    public void deleteTicket(Ticket ticket) {
         try (Session session = HibernateUtils.getInstance().getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.remove(client);
+            session.remove(ticket);
             transaction.commit();
         }
     }
-    public Client getClientById(Long clientId) {
-        try (Session session = HibernateUtils.getInstance().getSessionFactory().openSession()) {
-            return session.get(Client.class, clientId);
-        }
-    }
+
+
 }
